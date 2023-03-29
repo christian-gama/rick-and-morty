@@ -1,4 +1,4 @@
-import { theme } from '@/theme'
+import { theme } from '@/core/theme'
 import type { PropsWithChildren } from 'react'
 import { ThemeProvider } from 'styled-components'
 

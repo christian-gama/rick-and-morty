@@ -1,5 +1,6 @@
-import { renderWithProviders } from '../../../testutil'
 import Home from './Home'
+
+import { renderWithProviders } from '@/testutil/render'
 
 describe('Home', () => {
 	it('renders correctly', async () => {

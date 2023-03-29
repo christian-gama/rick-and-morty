@@ -1,11 +1,11 @@
-import ContentLayout from '@/component/Layout/ContentLayout'
+import { ContentLayout } from '@/core/component/Layout'
 
 const Episodes = () => {
 	return (
 		<ContentLayout
-			Input={<div />}
 			title='Episodes'
-			FilterContent={<div />}
+			FilterProps={{ onClear: () => {} }}
+			InputProps={{}}
 		/>
 	)
 }

@@ -1,6 +1,6 @@
-import { renderWithProviders } from '../../../testutil'
 import Backdrop from './Backdrop'
 
+import { renderWithProviders } from '@/testutil/render'
 import React from 'react'
 
 describe('Backdrop', () => {

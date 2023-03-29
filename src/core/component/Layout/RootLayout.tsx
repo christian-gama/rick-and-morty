@@ -1,4 +1,4 @@
-import type { Theme } from '@/theme'
+import type { Theme } from '@/core/theme'
 import styled, { css } from 'styled-components'
 
 const RootLayout = styled.div`

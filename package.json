@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint . --ext .ts .",
     "lint:fix": "prettier --write . && eslint . --ext .ts . --fix",
+    "test": "jest --detectOpenHandles --silent",
     "prepare": "husky install"
   },
   "dependencies": {

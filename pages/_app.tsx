@@ -1,11 +1,11 @@
-import { FontFace } from '@/component/FontFace'
-import { RootLayout } from '@/component/Layout'
-import { Seo } from '@/component/Seo'
-import { theme } from '@/theme'
+import { FontFace } from '@/core/component/FontFace'
+import { RootLayout } from '@/core/component/Layout'
+import { Seo } from '@/core/component/Seo'
+import { theme } from '@/core/theme'
 import { AppProps } from 'next/app'
 import { Open_Sans, Lato } from 'next/font/google'
 import { ThemeProvider } from 'styled-components'
-import '../src/css/reset.css'
+import '../src/core/css/reset.css'
 
 const primaryFontFace = Open_Sans({
 	subsets: ['latin'],

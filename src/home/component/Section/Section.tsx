@@ -1,7 +1,6 @@
-import { Image } from '../Image'
-import { Link } from '../Link'
-
-import type { Theme } from '@/theme'
+import { Image } from '@/core/component/Image'
+import { Link } from '@/core/component/Link'
+import type { Theme } from '@/core/theme'
 import type { FC } from 'react'
 import styled, { css } from 'styled-components'
 

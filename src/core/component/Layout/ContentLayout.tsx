@@ -1,8 +1,8 @@
 import { Filter } from '../Filter'
 
-import { FilterIcon, HeartIcon } from '@/icon'
-import { useFilter } from '@/store'
-import type { Theme } from '@/theme'
+import { FilterIcon, HeartIcon } from '@/core/icon'
+import { useFilter } from '@/core/store'
+import type { Theme } from '@/core/theme'
 import type { ComponentProps, FC, PropsWithChildren } from 'react'
 import styled from 'styled-components'
 

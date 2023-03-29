@@ -1,4 +1,4 @@
-import { Section } from '@/component/Section'
+import { Section } from '@/home/component/Section'
 import { FC } from 'react'
 import styled from 'styled-components'
 

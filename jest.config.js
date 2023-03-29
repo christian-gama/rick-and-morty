@@ -33,6 +33,7 @@ const jestConfig = {
 	transformIgnorePatterns: ['/node_modules/'],
 	testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
 	moduleNameMapper: {
+		'@/testutil/(.*)': '<rootDir>/testutil/$1',
 		'@/(.*)': '<rootDir>/src/$1',
 	},
 

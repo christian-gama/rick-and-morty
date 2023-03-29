@@ -1,8 +1,8 @@
 import { Backdrop } from '../Backdrop'
 
-import { XMarkIcon } from '@/icon'
-import { useFilter } from '@/store'
-import type { Theme } from '@/theme'
+import { XMarkIcon } from '@/core/icon'
+import { useFilter } from '@/core/store'
+import type { Theme } from '@/core/theme'
 import { FC, PropsWithChildren } from 'react'
 import styled from 'styled-components'
 
@@ -56,6 +56,8 @@ const CloseIcon = styled(XMarkIcon)`
 	cursor: pointer;
 	width: 1.5rem;
 	height: 1.5rem;
+	max-width: 1.5rem;
+	max-height: 1.5rem;
 `
 
 type FilterProps = PropsWithChildren<{
