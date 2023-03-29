@@ -32,6 +32,10 @@ const jestConfig = {
 	setupFilesAfterEnv: ['./jest.setup.ts'],
 	transformIgnorePatterns: ['/node_modules/'],
 	testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
+	moduleNameMapper: {
+		'@/(.*)': '<rootDir>/src/$1',
+	},
+
 }
 
 module.exports = jestConfig
