@@ -1,0 +1,9 @@
+node_modules
+.next
+.swc
+coverage
+.vscode
+.jest.config.js
+.next.config.js
+*.json
+*.lock
