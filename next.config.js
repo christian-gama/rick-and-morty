@@ -6,6 +6,9 @@ const nextConfig = {
 		buildActivity: true,
 		buildActivityPosition: 'top-right',
 	},
+	compiler: {
+		styledComponents: true,
+	},
 	images: {
 		deviceSizes: [360, 550, 768, 1024, 1280, 1440],
 		imageSizes: [32, 48, 64, 80, 96, 128],
