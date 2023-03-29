@@ -1,4 +1,4 @@
 export const font = {
-	primary: 'Open Sans, sans-serif',
-	secondary: 'Lato, sans-serif',
+	openSans: 'Open Sans, sans-serif',
+	lato: 'Lato, sans-serif',
 }

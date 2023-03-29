@@ -7,6 +7,8 @@ const Layout = styled.div`
 	flex-direction: column;
 	max-height: 100vh;
 	height: 100vh;
+	margin: 0 auto;
+	max-width: 120rem;
 `
 
 const Home: FC = () => {
@@ -16,6 +18,7 @@ const Home: FC = () => {
 				href='/episodes'
 				img='/episodes.png'
 				title='Episodes'
+				yPos={-1}
 			/>
 
 			<Section
@@ -28,6 +31,7 @@ const Home: FC = () => {
 				href='/locations'
 				img='/locations.jpg'
 				title='Locations'
+				yPos={70}
 			/>
 		</Layout>
 	)

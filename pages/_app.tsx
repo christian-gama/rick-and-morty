@@ -1,5 +1,5 @@
 import { FontFace } from '@/component/FontFace'
-import { StyledLayout } from '@/component/Layout'
+import { RootLayout } from '@/component/Layout'
 import { Seo } from '@/component/Seo'
 import { theme } from '@/theme'
 import { AppProps } from 'next/app'
@@ -57,9 +57,9 @@ export default function App({ Component, pageProps }: AppProps) {
 			/>
 
 			<ThemeProvider theme={theme}>
-				<StyledLayout>
+				<RootLayout>
 					<Component {...pageProps} />
-				</StyledLayout>
+				</RootLayout>
 			</ThemeProvider>
 		</>
 	)

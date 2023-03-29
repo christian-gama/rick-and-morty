@@ -1,9 +1,9 @@
 import { Image } from '../Image'
 import { Link } from '../Link'
 
-import { Theme } from '@/theme'
-import { FC } from 'react'
-import styled from 'styled-components'
+import type { Theme } from '@/theme'
+import type { FC } from 'react'
+import styled, { css } from 'styled-components'
 
 const StyledOverlay = styled.div`
 	position: absolute;
@@ -11,9 +11,11 @@ const StyledOverlay = styled.div`
 	left: 0;
 	right: 0;
 	padding: 8px 12px;
-	background-color: rgba(0, 0, 0, 0.75);
+	background-image: ${({ theme }: { theme: Theme }) => css`
+		linear-gradient(${theme.color.primary[900]}f9, ${theme.color.primary[700]}f9);
+	`};
 	color: white;
-	font-family: ${({ theme }: { theme: Theme }) => theme.font.primary};
+	font-family: ${({ theme }: { theme: Theme }) => theme.font.openSans};
 	font-size: 1rem;
 	z-index: 1;
 	transition: background-color 0.2s ease-in-out, padding 0.2s ease-in-out,
@@ -25,11 +27,12 @@ const StyledOverlay = styled.div`
 	}
 `
 
-const StyledImage = styled(Image)`
+const StyledImage = styled(Image)<{ yPos?: number; xPos?: number }>`
 	filter: saturate(0%);
 	transition: filter 0.3s ease-in-out;
 	object-fit: cover;
-	object-position: 50% 25%;
+	object-position: ${({ xPos, yPos }) =>
+		`${xPos ? `${xPos}%` : '50%'} ${yPos ? `${yPos}%` : '50%'}`};
 `
 
 const StyledSection = styled(Link)`
@@ -43,7 +46,6 @@ const StyledSection = styled(Link)`
 	}
 
 	&:hover ${StyledOverlay} {
-		background-color: rgba(0, 0, 0, 0.9);
 		padding: 20px 28px;
 		font-size: 1.4rem;
 
@@ -63,9 +65,11 @@ type SectionProps = {
 	title: string
 	img: string
 	href: string
+	yPos?: number
+	xPos?: number
 }
 
-const Section: FC<SectionProps> = ({ href, title, img }) => {
+const Section: FC<SectionProps> = ({ href, title, img, yPos, xPos }) => {
 	return (
 		<StyledSection href={href}>
 			<StyledOverlay>
@@ -75,7 +79,10 @@ const Section: FC<SectionProps> = ({ href, title, img }) => {
 			<StyledImage
 				src={img}
 				alt={title}
+				yPos={yPos}
+				xPos={xPos}
 				fill
+				quality={90}
 			/>
 		</StyledSection>
 	)
