@@ -1,12 +1,17 @@
+'use client'
 import { Filter } from '../Filter'
+import { Link } from '../Link'
 import { Search } from '../Search'
 import { Up } from '../Up'
 
 import { FilterIcon, HeartIcon } from '@/core/icon'
+import { isSSR } from '@/core/lib'
 import { useFilter } from '@/core/store'
 import type { Theme } from '@/core/theme'
-import type { ComponentProps, FC, PropsWithChildren } from 'react'
+import { useLike } from '@/likes/store'
+import { ComponentProps, FC, PropsWithChildren, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { shallow } from 'zustand/shallow'
 
 const StyledContentLayout = styled.div`
 	display: flex;
@@ -38,8 +43,7 @@ const Header = styled.div`
 `
 
 const Liked = styled(HeartIcon)`
-	color: white;
-	opacity: 0.65;
+	opacity: 0.8;
 	width: 2rem;
 	height: 2rem;
 	transition: opacity 0.2s ease-in-out;
@@ -49,6 +53,7 @@ const Liked = styled(HeartIcon)`
 		opacity: 0.95;
 	}
 `
+
 const Filtering = styled(FilterIcon)`
 	color: white;
 	opacity: 0.65;
@@ -73,11 +78,19 @@ const InputContainer = styled.div`
 
 type ContentLayoutProps = PropsWithChildren<{
 	title: string
-	InputProps: ComponentProps<typeof Search>
+	InputProps?: ComponentProps<typeof Search>
 }>
 
 const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) => {
 	const open = useFilter((state) => state.open)
+	const characterIds = useLike((state) => state.characterIds, shallow)
+	const [hasLikes, setHasLikes] = useState(false)
+
+	useEffect(() => {
+		if (isSSR()) return
+
+		setHasLikes(characterIds.length > 0)
+	}, [characterIds])
 
 	return (
 		<StyledContentLayout>
@@ -86,12 +99,13 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) 
 			<Header>
 				<Filtering onClick={open} />
 				<Title>{title}</Title>
-				<Liked />
+
+				<Link href='/liked'>
+					<Liked isLiked={hasLikes} />
+				</Link>
 			</Header>
 
-			<InputContainer>
-				<Search {...InputProps} />
-			</InputContainer>
+			<InputContainer>{InputProps && <Search {...InputProps} />}</InputContainer>
 
 			{children}
 

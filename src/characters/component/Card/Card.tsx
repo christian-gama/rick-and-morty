@@ -5,8 +5,8 @@ import { Image } from '@/core/component/Image'
 import { HeartIcon } from '@/core/icon'
 import { ellipsis } from '@/core/lib'
 import { useFilter } from '@/core/store'
-import { useLike } from '@/core/store/like'
 import type { Theme } from '@/core/theme'
+import { useLike } from '@/likes/store'
 import styled from 'styled-components'
 
 const StyledCard = styled.div`
@@ -78,12 +78,14 @@ const BodyFooter = styled.div`
 const Like = styled(HeartIcon)<{ isLiked: boolean }>`
 	width: 2rem;
 	height: 2rem;
+	opacity: 0.8;
 	fill: ${({ isLiked }: { isLiked: boolean }) => (isLiked ? '#c30f0f' : '#d8d8d8')};
-	transition: fill 0.25s ease;
+	transition: fill 0.25s ease, opacity 0.25s ease;
 	cursor: pointer;
 
 	&:hover {
 		fill: #c30f0f;
+		opacity: 1;
 	}
 `
 

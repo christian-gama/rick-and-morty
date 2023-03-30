@@ -1,4 +1,4 @@
-import { CharacterCard } from './'
+import { Card } from '.'
 
 import { Character } from '@/characters/dto'
 import { ellipsis } from '@/core/lib'
@@ -28,9 +28,9 @@ const character: Character.Output = {
 	url: 'https://rickandmortyapi.com/api/character/1',
 }
 
-describe('CharacterCard', () => {
+describe('Card', () => {
 	it('renders the character card correctly', async () => {
-		await renderWithProviders(<CharacterCard character={character} />)
+		await renderWithProviders(<Card character={character} />)
 
 		expect(screen.getByText(ellipsis(character.name, 14))).toBeInTheDocument()
 		expect(screen.getByText(new RegExp(character.species, 'i'))).toBeInTheDocument()
@@ -44,7 +44,7 @@ describe('CharacterCard', () => {
 			setSpecies('Alien')
 		})
 
-		const { container } = await renderWithProviders(<CharacterCard character={character} />)
+		const { container } = await renderWithProviders(<Card character={character} />)
 		expect(container.querySelector('[data-testid="card"]')).toBeNull()
 	})
 })

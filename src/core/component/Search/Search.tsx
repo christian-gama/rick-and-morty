@@ -16,7 +16,6 @@ type SelectGroupedOption = {
 type SelectFieldProps = {
 	options: Array<SelectOption | SelectGroupedOption>
 	value: string | null
-	loading?: boolean
 	name?: string
 	onChange: (value: SingleValue<SelectOption>, actionMeta?: ActionMeta<SelectOption>) => void
 	isClearable?: boolean
@@ -28,7 +27,6 @@ const Search = ({
 	options,
 	name,
 	onChange,
-	loading,
 	value,
 	isClearable,
 	fetchNextPage,
@@ -81,9 +79,10 @@ const Search = ({
 					...provided,
 					width: '100%',
 				}),
+
+				loadingIndicator: undefined,
 			}}
 			onChange={(selectedOption, actionMeta) => handleChange(selectedOption, actionMeta)}
-			isLoading={loading}
 			isClearable={isClearable}
 			placeholder='Search...'
 			tabSelectsValue

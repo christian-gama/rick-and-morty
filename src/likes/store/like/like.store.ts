@@ -42,7 +42,6 @@ const initializer: StateCreator<
 
 export const createLikeStore = persist(immer(initializer), {
 	name: ZST_CART_KEY,
-	getStorage: () => localStorage,
 })
 
 export const useLike = create<State & Actions>()(createLikeStore)

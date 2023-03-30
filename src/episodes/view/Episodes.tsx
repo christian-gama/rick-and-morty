@@ -1,7 +1,7 @@
 import { episodeService } from '../service'
 
+import { Card } from '@/characters/component/Card'
 import { characterService } from '@/characters/service'
-import { CharacterCard } from '@/core/component/CharacterCard'
 import { ContentLayout } from '@/core/component/Layout'
 import { LoadingIcon } from '@/core/icon'
 import { FC, useEffect, useMemo, useState } from 'react'
@@ -29,13 +29,7 @@ const Episodes: FC = () => {
 		characters: [],
 	})
 
-	const {
-		data: episodes,
-		isLoading: isLoadingEpisodes,
-		fetchNextPage,
-		hasNextPage,
-		isFetchingNextPage,
-	} = useLoadEpisodes()
+	const { data: episodes, fetchNextPage, hasNextPage } = useLoadEpisodes()
 
 	const [flatEpisodes, setFlatEpisodes] = useState(
 		episodes?.pages.flatMap((page) => page.results) ?? [],
@@ -84,7 +78,6 @@ const Episodes: FC = () => {
 				value: selectedEpisode.id.toString(),
 				options: episodeOptions,
 				name: 'episode',
-				loading: isLoadingEpisodes || isFetchingNextPage,
 				hasNextPage,
 			}}
 		>
@@ -93,7 +86,7 @@ const Episodes: FC = () => {
 					<LoadingIcon />
 				) : (
 					characters?.map((character) => (
-						<CharacterCard
+						<Card
 							key={character.id}
 							character={character}
 						/>

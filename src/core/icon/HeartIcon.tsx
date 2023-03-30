@@ -1,11 +1,16 @@
 import { FC, HTMLAttributes } from 'react'
 
-const HeartIcon: FC<HTMLAttributes<HTMLOrSVGElement>> = (props) => {
+type HeartIconProps = HTMLAttributes<HTMLOrSVGElement> & {
+	isLiked?: boolean
+}
+
+const HeartIcon: FC<HeartIconProps> = ({ isLiked, ...props }) => {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			viewBox='0 0 24 24'
-			fill='currentColor'
+			fill={isLiked ? '#c30f0f' : 'white'}
+			color={isLiked ? '#c30f0f' : 'white'}
 			width={24}
 			height={24}
 			{...props}
