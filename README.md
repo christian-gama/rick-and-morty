@@ -1,4 +1,4 @@
-- # Rick and Morty Frontend Application
+# Rick and Morty Frontend Application
 
 This project is a frontend application that consumes the [Rick and Morty API](https://rickandmortyapi.com/) . It provides an interactive interface to explore characters, episodes, and locations from the popular TV show. The application supports pagination and various filtering options.
 
