@@ -1,13 +1,2 @@
-import { ContentLayout } from '@/core/component/Layout'
-
-const Episodes = () => {
-	return (
-		<ContentLayout
-			title='Episodes'
-			FilterProps={{ onClear: () => {} }}
-			InputProps={{}}
-		/>
-	)
-}
-
+import { Episodes } from '@/episodes/view'
 export default Episodes

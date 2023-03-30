@@ -10,6 +10,14 @@ const nextConfig = {
 		styledComponents: true,
 	},
 	images: {
+		remotePatterns: [
+			{
+				hostname: 'rickandmortyapi.com',
+				pathname: '/api/**',
+				port: '',
+				protocol: 'https',
+			}
+		],
 		deviceSizes: [360, 550, 768, 1024, 1280, 1440],
 		imageSizes: [32, 48, 64, 80, 96, 128],
 	},

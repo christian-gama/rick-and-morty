@@ -1,4 +1,5 @@
 import { Filter } from '../Filter'
+import { Search } from '../Search'
 
 import { FilterIcon, HeartIcon } from '@/core/icon'
 import { useFilter } from '@/core/store'
@@ -69,34 +70,10 @@ const InputContainer = styled.div`
 	margin-top: 2rem;
 `
 
-const Input = styled.input`
-	width: 100%;
-	font-size: 1rem;
-	padding: 0.8rem 0.625rem;
-	border: none;
-	border-radius: 1rem;
-	box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.25);
-	color: ${({ theme }: { theme: Theme }) => theme.color.primary[800]};
-	font-family: ${({ theme }: { theme: Theme }) => theme.font.openSans};
-	transition: box-shadow 0.15s ease-in-out;
-
-	&:focus {
-		outline: none;
-		box-shadow: 1px 4px 12px rgba(0, 0, 0, 0.25),
-			0 0 0 3px ${({ theme }: { theme: Theme }) => theme.color.secondary[300]};
-	}
-
-	&::placeholder {
-		color: ${({ theme }: { theme: Theme }) => theme.color.primary[800]};
-		opacity: 0.5;
-		font-family: ${({ theme }: { theme: Theme }) => theme.font.openSans};
-	}
-`
-
 type ContentLayoutProps = PropsWithChildren<{
 	title: string
 	FilterProps: ComponentProps<typeof Filter>
-	InputProps: ComponentProps<typeof Input>
+	InputProps: ComponentProps<typeof Search>
 }>
 
 const ContentLayout: FC<ContentLayoutProps> = ({ title, FilterProps, InputProps, children }) => {
@@ -113,7 +90,7 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, FilterProps, InputProps,
 			</Header>
 
 			<InputContainer>
-				<Input
+				<Search
 					type='text'
 					placeholder='Search...'
 					{...InputProps}

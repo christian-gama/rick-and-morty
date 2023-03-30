@@ -26,4 +26,10 @@ export const color = {
 		900: '#133A32',
 		950: '#102823',
 	},
+
+	text: {
+		dark: '#3A3636',
+		default: '#4D4D4D',
+		light: '#6D6D6D',
+	},
 }

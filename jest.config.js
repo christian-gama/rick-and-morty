@@ -36,7 +36,6 @@ const jestConfig = {
 		'@/testutil/(.*)': '<rootDir>/testutil/$1',
 		'@/(.*)': '<rootDir>/src/$1',
 	},
-
 }
 
 module.exports = jestConfig
