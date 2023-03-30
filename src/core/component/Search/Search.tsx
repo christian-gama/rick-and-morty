@@ -54,6 +54,12 @@ const Search = ({
 		})
 	}, [options, value])
 
+	useEffect(() => {
+		if (value === null) {
+			setSelectedOption(null)
+		}
+	}, [value])
+
 	const handleChange = useCallback(
 		(selectedOption: SingleValue<SelectOption>, actionMeta: ActionMeta<SelectOption>) => {
 			setSelectedOption(selectedOption)
@@ -61,13 +67,6 @@ const Search = ({
 		},
 		[onChange],
 	)
-
-	useEffect(() => {
-		// if value is null, clear selected option
-		if (value === null) {
-			setSelectedOption(null)
-		}
-	}, [value])
 
 	return (
 		<Select
@@ -158,7 +157,7 @@ const Search = ({
 }
 
 Search.defaultProps = {
-	isClearable: true,
+	isClearable: false,
 }
 
 export default Search

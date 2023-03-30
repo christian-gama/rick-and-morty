@@ -9,8 +9,18 @@ export namespace Character {
 		/** The status of the character ('Alive', 'Dead' or 'unknown'). */
 		status: 'Alive' | 'Dead' | 'unknown'
 
-		/** The species of the character. */
-		species: string
+		species:
+			| 'Human'
+			| 'Alien'
+			| 'Humanoid'
+			| 'Poopybutthole'
+			| 'Mythological'
+			| 'Unknown'
+			| 'Animal'
+			| 'Disease'
+			| 'Robot'
+			| 'Cronenberg'
+			| 'Planet'
 
 		/** The type or subspecies of the character. */
 		type: string

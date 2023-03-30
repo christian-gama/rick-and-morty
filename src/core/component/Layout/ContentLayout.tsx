@@ -1,5 +1,6 @@
 import { Filter } from '../Filter'
 import { Search } from '../Search'
+import { Up } from '../Up'
 
 import { FilterIcon, HeartIcon } from '@/core/icon'
 import { useFilter } from '@/core/store'
@@ -93,6 +94,8 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) 
 			</InputContainer>
 
 			{children}
+
+			<Up />
 		</StyledContentLayout>
 	)
 }

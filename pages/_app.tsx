@@ -1,6 +1,6 @@
 import { FontFace } from '@/core/component/FontFace'
 import { RootLayout } from '@/core/component/Layout'
-import { Seo } from '@/core/component/Seo'
+import { Manifest, Seo } from '@/core/component/Seo'
 import { theme } from '@/core/theme'
 import { AppProps } from 'next/app'
 import { Open_Sans, Lato } from 'next/font/google'
@@ -51,6 +51,8 @@ export default function App({ Component, pageProps }: AppProps) {
 				]}
 				twitter
 			/>
+
+			<Manifest />
 
 			<FontFace
 				primaryFontFamily={primaryFontFace.style.fontFamily}

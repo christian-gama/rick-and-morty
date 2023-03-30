@@ -3,6 +3,7 @@ import { episodeService } from '../service'
 import { characterService } from '@/characters/service'
 import { CharacterCard } from '@/core/component/CharacterCard'
 import { ContentLayout } from '@/core/component/Layout'
+import { LoadingIcon } from '@/core/icon'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery, useQuery } from 'react-query'
 import styled from 'styled-components'
@@ -40,7 +41,9 @@ const Episodes: FC = () => {
 		episodes?.pages.flatMap((page) => page.results) ?? [],
 	)
 
-	const { data: characters } = useLoadCharacters(extractCharacterIds(selectedEpisode.characters))
+	const { data: characters, isLoading: isLoadingCharacters } = useLoadCharacters(
+		extractCharacterIds(selectedEpisode.characters),
+	)
 
 	useEffect(() => {
 		if (episodes) {
@@ -70,7 +73,6 @@ const Episodes: FC = () => {
 	return (
 		<ContentLayout
 			title='Episodes'
-			FilterProps={{ onClear: () => {} }}
 			InputProps={{
 				onChange: (singleValue) => {
 					setSelectedEpisode((prev) => ({
@@ -84,16 +86,19 @@ const Episodes: FC = () => {
 				name: 'episode',
 				loading: isLoadingEpisodes || isFetchingNextPage,
 				hasNextPage,
-				isClearable: true,
 			}}
 		>
 			<Layout data-testid='episodes'>
-				{characters?.map((character) => (
-					<CharacterCard
-						key={character.id}
-						character={character}
-					/>
-				))}
+				{isLoadingCharacters ? (
+					<LoadingIcon />
+				) : (
+					characters?.map((character) => (
+						<CharacterCard
+							key={character.id}
+							character={character}
+						/>
+					))
+				)}
 			</Layout>
 		</ContentLayout>
 	)
