@@ -21,8 +21,8 @@ type PillProps = {
 
 export const Pill = ({ status }: PillProps) => {
 	const colorMap = new Map([
-		['alive', '#1D9C1A'],
-		['dead', '#C30F0F'],
+		['Alive', '#1D9C1A'],
+		['Dead', '#C30F0F'],
 		['unknown', '#3D3D3D'],
 	])
 

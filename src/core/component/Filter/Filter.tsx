@@ -1,9 +1,11 @@
 import { Backdrop } from '../Backdrop'
+import { Search } from '../Search'
 
+import { Character } from '@/characters/dto'
 import { XMarkIcon } from '@/core/icon'
 import { useFilter } from '@/core/store'
 import type { Theme } from '@/core/theme'
-import { FC, PropsWithChildren } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
 const StyledFilter = styled.div<{ isOpen: boolean }>`
@@ -60,15 +62,49 @@ const CloseIcon = styled(XMarkIcon)`
 	max-height: 1.5rem;
 `
 
-type FilterProps = PropsWithChildren<{
-	onClear: () => void
-}>
+const Label = styled.label`
+	color: white;
+	font-size: 0.8rem;
+	margin-bottom: 0.5rem;
+`
 
-const Filter: FC<FilterProps> = ({ children, onClear }) => {
-	const { close, isOpen } = useFilter((state) => ({
-		close: state.close,
-		isOpen: state.isOpen,
-	}))
+const InputBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1.25rem;
+`
+
+const Filter: FC = () => {
+	const { close, isOpen, clear, setGender, setSpecies, setStatus, values } = useFilter(
+		(state) => state,
+	)
+
+	const status = [
+		{ label: 'Alive', value: 'alive' },
+		{ label: 'Dead', value: 'dead' },
+		{ label: 'Unknown', value: 'unknown' },
+	]
+
+	const species = [
+		{ label: 'Human', value: 'human' },
+		{ label: 'Alien', value: 'alien' },
+		{ label: 'Humanoid', value: 'humanoid' },
+		{ label: 'Poopybutthole', value: 'poopybutthole' },
+		{ label: 'Mythological', value: 'mythological' },
+		{ label: 'Unknown', value: 'unknown' },
+		{ label: 'Animal', value: 'animal' },
+		{ label: 'Disease', value: 'disease' },
+		{ label: 'Robot', value: 'robot' },
+		{ label: 'Cronenberg', value: 'cronenberg' },
+		{ label: 'Planet', value: 'planet' },
+	]
+
+	const genders = [
+		{ label: 'Female', value: 'female' },
+		{ label: 'Male', value: 'male' },
+		{ label: 'Genderless', value: 'genderless' },
+		{ label: 'Unknown', value: 'unknown' },
+	]
 
 	return (
 		<Backdrop isOpen={isOpen}>
@@ -78,9 +114,46 @@ const Filter: FC<FilterProps> = ({ children, onClear }) => {
 					<CloseIcon onClick={close} />
 				</Header>
 
-				{children}
+				<InputBox>
+					<Label>Status</Label>
+					<Search
+						onChange={(singleValue) => {
+							setStatus(singleValue?.label as Character.Output['status'])
+						}}
+						value={values.status || null}
+						options={status}
+						name='status'
+						isClearable
+					/>
+				</InputBox>
 
-				<ClearButton onClick={onClear}>Clear</ClearButton>
+				<InputBox>
+					<Label>Species</Label>
+					<Search
+						onChange={(singleValue) => {
+							setSpecies(singleValue?.label as Character.Output['species'])
+						}}
+						value={values.species || null}
+						options={species}
+						name='species'
+						isClearable
+					/>
+				</InputBox>
+
+				<InputBox>
+					<Label>Gender</Label>
+					<Search
+						onChange={(singleValue) => {
+							setGender(singleValue?.label as Character.Output['gender'])
+						}}
+						value={values.gender || null}
+						options={genders}
+						name='gender'
+						isClearable
+					/>
+				</InputBox>
+
+				<ClearButton onClick={clear}>Clear</ClearButton>
 			</StyledFilter>
 		</Backdrop>
 	)

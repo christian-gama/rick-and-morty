@@ -72,16 +72,15 @@ const InputContainer = styled.div`
 
 type ContentLayoutProps = PropsWithChildren<{
 	title: string
-	FilterProps: ComponentProps<typeof Filter>
 	InputProps: ComponentProps<typeof Search>
 }>
 
-const ContentLayout: FC<ContentLayoutProps> = ({ title, FilterProps, InputProps, children }) => {
+const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) => {
 	const open = useFilter((state) => state.open)
 
 	return (
 		<StyledContentLayout>
-			<Filter {...FilterProps} />
+			<Filter />
 
 			<Header>
 				<Filtering onClick={open} />

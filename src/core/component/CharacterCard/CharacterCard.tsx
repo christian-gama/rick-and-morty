@@ -4,6 +4,7 @@ import { Character } from '@/characters/dto'
 import { Image } from '@/core/component/Image'
 import { HeartIcon } from '@/core/icon'
 import { ellipsis } from '@/core/lib'
+import { useFilter } from '@/core/store'
 import type { Theme } from '@/core/theme'
 import styled from 'styled-components'
 
@@ -21,7 +22,8 @@ const Body = styled.div`
 	padding: 1rem 0.75rem;
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	justify-content: space-between;
+	height: 8rem;
 `
 
 const Name = styled.h3`
@@ -88,9 +90,23 @@ type CardProps = {
 	character: Character.Output
 }
 
-export const Card = ({ character }: CardProps) => {
+export const CharacterCard = ({ character }: CardProps) => {
+	const values = useFilter((state) => state.values)
+
+	if (!character.species.toLowerCase().includes(values.species?.toLowerCase() || '')) {
+		return null
+	}
+
+	if (!character.status.toLowerCase().includes(values.status?.toLowerCase() || '')) {
+		return null
+	}
+
+	if (!character.gender.toLowerCase().includes(values.gender?.toLowerCase() || '')) {
+		return null
+	}
+
 	return (
-		<StyledCard>
+		<StyledCard data-testid='card'>
 			<Image
 				src={character.image}
 				alt={character.name}
@@ -98,7 +114,7 @@ export const Card = ({ character }: CardProps) => {
 				height={300}
 				style={{
 					maxWidth: '20rem',
-					height: '100%',
+					height: '300px',
 					objectFit: 'cover',
 					objectPosition: 'center',
 				}}
@@ -116,7 +132,7 @@ export const Card = ({ character }: CardProps) => {
 				<BodyFooter>
 					<LocationContainer>
 						<Subtitle>Last location</Subtitle>
-						<Location>{character.location.name}</Location>
+						<Location>{ellipsis(character.location.name, 24)}</Location>
 					</LocationContainer>
 
 					<Like />
@@ -126,4 +142,4 @@ export const Card = ({ character }: CardProps) => {
 	)
 }
 
-export default Card
+export default CharacterCard

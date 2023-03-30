@@ -62,6 +62,13 @@ const Search = ({
 		[onChange],
 	)
 
+	useEffect(() => {
+		// if value is null, clear selected option
+		if (value === null) {
+			setSelectedOption(null)
+		}
+	}, [value])
+
 	return (
 		<Select
 			ref={ref}

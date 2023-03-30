@@ -1,7 +1,7 @@
 import { episodeService } from '../service'
 
 import { characterService } from '@/characters/service'
-import { Card } from '@/core/component/Card'
+import { CharacterCard } from '@/core/component/CharacterCard'
 import { ContentLayout } from '@/core/component/Layout'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery, useQuery } from 'react-query'
@@ -89,7 +89,7 @@ const Episodes: FC = () => {
 		>
 			<Layout data-testid='episodes'>
 				{characters?.map((character) => (
-					<Card
+					<CharacterCard
 						key={character.id}
 						character={character}
 					/>
