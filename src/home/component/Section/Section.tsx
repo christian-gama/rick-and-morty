@@ -30,8 +30,6 @@ const StyledImage = styled(Image)<{ yPos?: number; xPos?: number }>`
 	filter: saturate(0%);
 	transition: filter 0.3s ease-in-out;
 	object-fit: cover;
-	object-position: ${({ xPos, yPos }) =>
-		`${xPos ? `${xPos}%` : '50%'} ${yPos ? `${yPos}%` : '50%'}`};
 `
 
 const StyledSection = styled(Link)`
@@ -78,10 +76,12 @@ const Section: FC<SectionProps> = ({ href, title, img, yPos, xPos }) => {
 			<StyledImage
 				src={img}
 				alt={title}
-				yPos={yPos}
-				xPos={xPos}
 				fill
 				quality={90}
+				priority
+				style={{
+					objectPosition: `${xPos || 50}% ${yPos || 0}%`,
+				}}
 			/>
 		</StyledSection>
 	)

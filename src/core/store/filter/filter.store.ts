@@ -10,7 +10,7 @@ type Actions = {
 }
 
 export const useFilter = create<State & Actions>((set) => ({
-	isOpen: true,
+	isOpen: false,
 
 	close: () => {
 		set((state) => {

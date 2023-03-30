@@ -4,6 +4,7 @@ import { Seo } from '@/core/component/Seo'
 import { theme } from '@/core/theme'
 import { AppProps } from 'next/app'
 import { Open_Sans, Lato } from 'next/font/google'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { ThemeProvider } from 'styled-components'
 import '../src/core/css/reset.css'
 
@@ -56,11 +57,13 @@ export default function App({ Component, pageProps }: AppProps) {
 				secondaryFontFamily={secondaryFontFace.style.fontFamily}
 			/>
 
-			<ThemeProvider theme={theme}>
-				<RootLayout>
-					<Component {...pageProps} />
-				</RootLayout>
-			</ThemeProvider>
+			<QueryClientProvider client={new QueryClient()}>
+				<ThemeProvider theme={theme}>
+					<RootLayout>
+						<Component {...pageProps} />
+					</RootLayout>
+				</ThemeProvider>
+			</QueryClientProvider>
 		</>
 	)
 }

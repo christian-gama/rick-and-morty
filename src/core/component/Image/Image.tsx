@@ -1,17 +1,6 @@
 import NextImage from 'next/image'
-import type { CSSProperties, FC } from 'react'
+import type { ComponentProps, FC } from 'react'
 import styled, { keyframes } from 'styled-components'
-
-interface ImageProps {
-	alt: string
-	src: string
-	fill?: boolean
-	sizes?: string
-	width?: number
-	height?: number
-	style?: CSSProperties
-	quality?: number
-}
 
 const pulseKeyframe = keyframes`
   from {
@@ -23,39 +12,22 @@ const pulseKeyframe = keyframes`
   }
 `
 
-const ImageWrapper = styled(NextImage)<ImageProps>`
+const ImageWrapper = styled(NextImage)`
 	width: ${({ width = '100%' }) => width};
 	height: ${({ height = '100%' }) => height};
 `
 
-const StyledNextImage = styled(NextImage)<ImageProps>`
+const StyledNextImage = styled(NextImage)`
 	background-color: transparent;
 	animation: ${pulseKeyframe} 0.5s infinite ease-in-out alternate;
 `
 
-const Image: FC<ImageProps> = ({ alt, src, fill, height, sizes, style, width }) => {
-	if (!src) {
-		return (
-			<ImageWrapper
-				alt={alt}
-				width={width}
-				height={height}
-				src=''
-			/>
-		)
+const Image: FC<ComponentProps<typeof NextImage>> = (props) => {
+	if (!props.src) {
+		return <ImageWrapper {...props} />
 	}
 
-	return (
-		<StyledNextImage
-			alt={alt}
-			src={src}
-			width={width}
-			height={height}
-			sizes={sizes}
-			style={style}
-			fill={fill}
-		/>
-	)
+	return <StyledNextImage {...props} />
 }
 
 export default Image

@@ -7,6 +7,7 @@ const RootLayout = styled.div`
     url(/stars.png),
     linear-gradient(${theme.color.primary[800]} 17%, ${theme.color.secondary[500]});
   `};
+	background-attachment: fixed;
 
 	@keyframes moveBackground {
 		0% {

@@ -31,6 +31,8 @@ const eslintConfig = {
 		],
 		'@typescript-eslint/no-empty-interface': 'off',
 
+		'react-hooks/exhaustive-deps': 'off',
+
 		'import-helpers/order-imports': [
 			'warn',
 			{

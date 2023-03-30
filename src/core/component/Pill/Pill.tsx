@@ -16,10 +16,10 @@ const Text = styled.p`
 `
 
 type PillProps = {
-	condition: 'alive' | 'dead' | 'unknown'
+	status: 'Alive' | 'Dead' | 'unknown'
 }
 
-export const Pill = ({ condition }: PillProps) => {
+export const Pill = ({ status }: PillProps) => {
 	const colorMap = new Map([
 		['alive', '#1D9C1A'],
 		['dead', '#C30F0F'],
@@ -27,8 +27,8 @@ export const Pill = ({ condition }: PillProps) => {
 	])
 
 	return (
-		<StyledPill color={colorMap.get(condition)!}>
-			<Text>{condition}</Text>
+		<StyledPill color={colorMap.get(status)!}>
+			<Text>{status}</Text>
 		</StyledPill>
 	)
 }

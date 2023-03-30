@@ -90,11 +90,7 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, FilterProps, InputProps,
 			</Header>
 
 			<InputContainer>
-				<Search
-					type='text'
-					placeholder='Search...'
-					{...InputProps}
-				/>
+				<Search {...InputProps} />
 			</InputContainer>
 
 			{children}

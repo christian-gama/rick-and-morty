@@ -1,5 +1,6 @@
 import { Pill } from '../Pill'
 
+import { Character } from '@/characters/dto'
 import { Image } from '@/core/component/Image'
 import { HeartIcon } from '@/core/icon'
 import { ellipsis } from '@/core/lib'
@@ -84,20 +85,15 @@ const Like = styled(HeartIcon)`
 `
 
 type CardProps = {
-	name: string
-	img: string
-	location: string
-	genre: string
-	type: string
-	condition: 'alive' | 'dead' | 'unknown'
+	character: Character.Output
 }
 
-export const Card = ({ name, img, location, genre, type, condition }: CardProps) => {
+export const Card = ({ character }: CardProps) => {
 	return (
 		<StyledCard>
 			<Image
-				src={img}
-				alt={name}
+				src={character.image}
+				alt={character.name}
 				width={300}
 				height={300}
 				style={{
@@ -111,16 +107,16 @@ export const Card = ({ name, img, location, genre, type, condition }: CardProps)
 			<Body>
 				<BodyHeader>
 					<NameContainer>
-						<Name>{ellipsis(name, 14)}</Name>
-						<Subtitle>{`${genre} - ${type}`}</Subtitle>
+						<Name>{ellipsis(character.name, 14)}</Name>
+						<Subtitle>{`${character.gender} - ${character.species}`}</Subtitle>
 					</NameContainer>
-					<Pill condition={condition} />
+					<Pill status={character.status} />
 				</BodyHeader>
 
 				<BodyFooter>
 					<LocationContainer>
 						<Subtitle>Last location</Subtitle>
-						<Location>{location}</Location>
+						<Location>{character.location.name}</Location>
 					</LocationContainer>
 
 					<Like />
