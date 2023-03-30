@@ -5,6 +5,7 @@ import { Image } from '@/core/component/Image'
 import { HeartIcon } from '@/core/icon'
 import { ellipsis } from '@/core/lib'
 import { useFilter } from '@/core/store'
+import { useLike } from '@/core/store/like'
 import type { Theme } from '@/core/theme'
 import styled from 'styled-components'
 
@@ -74,10 +75,10 @@ const BodyFooter = styled.div`
 	align-items: flex-end;
 `
 
-const Like = styled(HeartIcon)`
+const Like = styled(HeartIcon)<{ isLiked: boolean }>`
 	width: 2rem;
 	height: 2rem;
-	fill: #adadad;
+	fill: ${({ isLiked }: { isLiked: boolean }) => (isLiked ? '#c30f0f' : '#d8d8d8')};
 	transition: fill 0.25s ease;
 	cursor: pointer;
 
@@ -92,6 +93,7 @@ type CardProps = {
 
 export const CharacterCard = ({ character }: CardProps) => {
 	const values = useFilter((state) => state.values)
+	const { addCharacter, removeCharacter, isLiked } = useLike((state) => state)
 
 	if (!character.species.toLowerCase().includes(values.species?.toLowerCase() || '')) {
 		return null
@@ -135,7 +137,16 @@ export const CharacterCard = ({ character }: CardProps) => {
 						<Location>{ellipsis(character.location.name, 24)}</Location>
 					</LocationContainer>
 
-					<Like />
+					<Like
+						isLiked={isLiked(character.id)}
+						onClick={() => {
+							if (isLiked(character.id)) {
+								removeCharacter(character.id)
+							} else {
+								addCharacter(character.id)
+							}
+						}}
+					/>
 				</BodyFooter>
 			</Body>
 		</StyledCard>
