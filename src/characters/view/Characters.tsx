@@ -3,6 +3,7 @@ import { characterService } from '../service'
 
 import { Card } from '@/characters/component/Card'
 import { ContentLayout } from '@/core/component/Layout'
+import { Pagination } from '@/core/dto'
 import { useFilter } from '@/core/store'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
@@ -20,11 +21,19 @@ const Layout = styled.div`
 	}
 `
 
-const Characters: FC = () => {
+type Characters = {
+	preloadedCharacters?: Pagination<Character.Output>
+}
+
+const Characters: FC<Characters> = ({ preloadedCharacters }) => {
 	const filter = useFilter((state) => state.values)
 	const setName = useFilter((state) => state.setName)
 
-	const { data: characters, fetchNextPage, hasNextPage } = useLoadCharacters(filter)
+	const {
+		data: characters,
+		fetchNextPage,
+		hasNextPage,
+	} = useLoadCharacters(filter, preloadedCharacters)
 
 	const [flatCharacters, setFlatCharacters] = useState(
 		characters?.pages.flatMap((page) => page?.results ?? []),
@@ -92,7 +101,7 @@ const Characters: FC = () => {
 
 export default Characters
 
-function useLoadCharacters(filter: Character.Input) {
+function useLoadCharacters(filter: Character.Input, initialData?: Pagination<Character.Output>) {
 	return useInfiniteQuery(
 		['characters', filter],
 		({ pageParam }) => {
@@ -105,6 +114,7 @@ function useLoadCharacters(filter: Character.Input) {
 				}
 			},
 			keepPreviousData: true,
+			initialData: { pages: [initialData], pageParams: [] },
 		},
 	)
 }

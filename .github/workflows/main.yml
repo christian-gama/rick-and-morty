@@ -50,7 +50,7 @@ jobs:
             ${{ runner.os }}-nextjs-
 
       - name: Build
-        run: yarn workspace @web/app build
+        run: yarn build
 
       - name: Deploy
         uses: amondnet/vercel-action@v20
