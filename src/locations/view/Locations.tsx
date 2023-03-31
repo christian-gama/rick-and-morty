@@ -1,9 +1,12 @@
-import { extractCharacterIds } from '../lib'
+import { Location } from '../dto'
 import { locationService } from '../service'
 
 import { Card } from '@/characters/component/Card'
+import { Character } from '@/characters/dto'
+import { extractCharacterIds } from '@/characters/lib'
 import { characterService } from '@/characters/service'
 import { ContentLayout } from '@/core/component/Layout'
+import { Pagination } from '@/core/dto'
 import { LoadingIcon } from '@/core/icon'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery, useQuery } from 'react-query'
@@ -21,7 +24,14 @@ const Layout = styled.div`
 	}
 `
 
-const Locations: FC = () => {
+type LocationsProps = {
+	preloadedLocations: Pagination<Location.Output>
+	preloadedCharacters: Character.Output[]
+}
+
+const Locations: FC<LocationsProps> = ({ preloadedLocations, preloadedCharacters }) => {
+	console.log('preloadedLocations', preloadedLocations)
+	console.log('preloadedCharacters', preloadedCharacters)
 	const [selectedLocation, setSelectedLocation] = useState<{
 		id: number
 		residents: string[]
@@ -30,7 +40,7 @@ const Locations: FC = () => {
 		residents: [],
 	})
 
-	const { data: locations, fetchNextPage, hasNextPage } = useLoadLocations()
+	const { data: locations, fetchNextPage, hasNextPage } = useLoadLocations(preloadedLocations)
 
 	const [flatLocations, setFlatLocations] = useState(
 		locations?.pages.flatMap((page) => page?.results ?? []),
@@ -38,6 +48,7 @@ const Locations: FC = () => {
 
 	const { data: residents, isLoading: isLoadingResidents } = useLoadResidents(
 		extractCharacterIds(selectedLocation.residents),
+		preloadedCharacters,
 	)
 
 	useEffect(() => {
@@ -47,12 +58,12 @@ const Locations: FC = () => {
 	}, [locations])
 
 	useEffect(() => {
-		const episode = flatLocations?.find((location) => location.id === selectedLocation.id)
+		const location = flatLocations?.find((location) => location.id === selectedLocation.id)
 
-		if (episode) {
+		if (location) {
 			setSelectedLocation((prev) => ({
 				...prev,
-				residents: episode.residents,
+				residents: location.residents,
 			}))
 		}
 	}, [selectedLocation.id, flatLocations])
@@ -101,7 +112,7 @@ const Locations: FC = () => {
 
 export default Locations
 
-function useLoadLocations() {
+function useLoadLocations(initialData: Pagination<Location.Output>) {
 	return useInfiniteQuery(
 		'locations',
 		({ pageParam }) => {
@@ -114,18 +125,20 @@ function useLoadLocations() {
 				}
 			},
 			keepPreviousData: true,
+			initialData: { pages: [initialData], pageParams: [] },
 		},
 	)
 }
 
-function useLoadResidents(residentsId: number[]) {
+function useLoadResidents(residentsId: number[], initialData?: Character.Output[]) {
 	const result = useQuery(
 		['residents', residentsId],
 		() => {
 			return characterService.getByIds(residentsId)
 		},
 		{
-			enabled: residentsId.length > 0,
+			enabled: residentsId.length > 0 && !!initialData,
+			initialData,
 		},
 	)
 

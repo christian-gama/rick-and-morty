@@ -1,10 +1,19 @@
+import { extractCharacterIds } from '@/characters/lib'
 import { characterService } from '@/characters/service'
-import { extractCharacterIds } from '@/episodes/lib'
+import { Seo } from '@/core/component/Seo'
 import { episodeService } from '@/episodes/service'
 import { Episodes } from '@/episodes/view'
 import { GetStaticProps } from 'next'
 import { ComponentProps } from 'react'
-export default Episodes
+
+export default function EpisodesPage(props: ComponentProps<typeof Episodes>) {
+	return (
+		<>
+			<Seo title='Episodes' />
+			<Episodes {...props} />
+		</>
+	)
+}
 
 export const getStaticProps: GetStaticProps<
 	ComponentProps<typeof Episodes>

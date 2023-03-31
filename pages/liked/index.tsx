@@ -1,2 +1,11 @@
+import { Seo } from '@/core/component/Seo'
 import { Likes } from '@/likes/view'
-export default Likes
+
+export default function LikesPage() {
+	return (
+		<>
+			<Seo title='Likes' />
+			<Likes />
+		</>
+	)
+}

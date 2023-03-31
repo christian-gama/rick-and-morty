@@ -1,8 +1,17 @@
 import { characterService } from '@/characters/service'
 import { Characters } from '@/characters/view'
+import { Seo } from '@/core/component/Seo'
 import { GetStaticProps } from 'next'
 import { ComponentProps } from 'react'
-export default Characters
+
+export default function CharactersPage(props: ComponentProps<typeof Characters>) {
+	return (
+		<>
+			<Seo title='Characters' />
+			<Characters {...props} />
+		</>
+	)
+}
 
 export const getStaticProps: GetStaticProps<
 	ComponentProps<typeof Characters>

@@ -1,5 +1,5 @@
+import { extractCharacterIds } from '../../characters/lib'
 import { Episode } from '../dto'
-import { extractCharacterIds } from '../lib'
 import { episodeService } from '../service'
 
 import { Card } from '@/characters/component/Card'
