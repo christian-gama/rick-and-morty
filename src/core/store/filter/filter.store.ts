@@ -4,7 +4,7 @@ import { Character } from '@/characters/dto'
 
 type State = {
 	isOpen: boolean
-	values: Partial<Pick<Character.Output, 'gender' | 'species' | 'status'>>
+	values: Character.Input
 }
 
 type Actions = {
@@ -14,6 +14,7 @@ type Actions = {
 	setStatus: (status: State['values']['status']) => void
 	setGender: (status: State['values']['gender']) => void
 	setSpecies: (status: State['values']['species']) => void
+	setName: (name: State['values']['name']) => void
 }
 
 export const useFilter = create<State & Actions>((set) => ({
@@ -61,6 +62,12 @@ export const useFilter = create<State & Actions>((set) => ({
 	setSpecies: (species) => {
 		set((state) => {
 			state.values.species = species
+		})
+	},
+
+	setName: (name) => {
+		set((state) => {
+			state.values.name = name
 		})
 	},
 }))

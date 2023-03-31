@@ -106,15 +106,24 @@ type ContentLayoutProps = PropsWithChildren<{
 
 const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) => {
 	const open = useFilter((state) => state.open)
+	const clear = useFilter((state) => state.clear)
 	const characterIds = useLike((state) => state.characterIds, shallow)
 	const [hasLikes, setHasLikes] = useState(false)
-	const { back } = useRouter()
+	const { push } = useRouter()
 
 	useEffect(() => {
 		if (isSSR()) return
 
 		setHasLikes(characterIds.length > 0)
 	}, [characterIds])
+
+	useEffect(() => {
+		clear()
+
+		return () => {
+			clear()
+		}
+	}, [])
 
 	return (
 		<StyledContentLayout>
@@ -124,7 +133,7 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) 
 				<ActionsContainer>
 					<Filtering onClick={open} />
 					<Back
-						onClick={back}
+						onClick={() => push('/')}
 						title='Go back'
 					/>
 				</ActionsContainer>

@@ -15,9 +15,8 @@ const StyledCard = styled.div`
 	background-color: white;
 	border-radius: 1rem;
 	overflow: hidden;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 3px 16px rgba(0, 0, 0, 0.22);
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.4);
 	max-width: 20rem;
-	border: 1px solid ${({ theme }: { theme: Theme }) => theme.color.secondary[50]};
 `
 
 const Body = styled.div`
@@ -107,6 +106,11 @@ export const CharacterCard = ({ character }: CardProps) => {
 	}
 
 	if (!character.gender.toLowerCase().includes(values.gender?.toLowerCase() || '')) {
+		return null
+	}
+
+	const filterName = values.name?.toLowerCase() || ''
+	if (character.name.toLowerCase() !== filterName && filterName !== '') {
 		return null
 	}
 

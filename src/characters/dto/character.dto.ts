@@ -59,15 +59,15 @@ export namespace Character {
 		name?: string
 
 		/** Filter by the given status ('Alive', 'Dead' or 'unknown'). */
-		status?: 'alive' | 'dead' | 'unknown'
+		status?: 'Alive' | 'Dead' | 'unknown'
 
 		/** Filter by the given species. */
 		species?: string
 
-		/** Filter by the given type. */
-		type?: string
-
 		/* Filter by the given gender (female, male, genderless or unknown). */
 		gender?: string
+
+		/** Page number of the results to fetch. */
+		page?: number
 	}
 }

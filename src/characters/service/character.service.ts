@@ -8,7 +8,7 @@ export class CharacterService extends RickAndMortyAPI {
 
 	async getAll(filter?: Character.Input): Promise<Pagination<Character.Output>> {
 		const response = await this.api.get(`${this.path}`, { params: filter })
-		return response.data.results
+		return response.data
 	}
 
 	async getById(id: number): Promise<Character.Output> {

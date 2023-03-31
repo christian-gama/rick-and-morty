@@ -135,8 +135,8 @@ const Search = ({
 							totalCount={childrens.length}
 							itemContent={(index) => childrens[index]}
 							initialItemCount={childrens.length > 10 ? 10 : childrens.length}
-							atBottomStateChange={(atBottom) => {
-								if (atBottom && hasNextPage && fetchNextPage) {
+							endReached={(index) => {
+								if (index === childrens.length - 1 && hasNextPage && fetchNextPage) {
 									fetchNextPage()
 								}
 							}}

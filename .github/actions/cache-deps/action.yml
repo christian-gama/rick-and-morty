@@ -1,0 +1,14 @@
+name: Cache & Install Dependencies
+description: Uses yarn cache to speed up dependency installation.
+runs:
+  using: "composite"
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'yarn'
+    
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash
