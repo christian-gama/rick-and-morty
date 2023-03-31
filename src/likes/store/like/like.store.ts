@@ -12,7 +12,7 @@ export type Actions = {
 	isLiked: (id: number) => boolean
 }
 
-const ZST_CART_KEY = 'likes'
+const ZST_LIKE_KEY = 'likes'
 
 const initializer: StateCreator<
 	State & Actions,
@@ -41,7 +41,7 @@ const initializer: StateCreator<
 })
 
 export const createLikeStore = persist(immer(initializer), {
-	name: ZST_CART_KEY,
+	name: ZST_LIKE_KEY,
 })
 
 export const useLike = create<State & Actions>()(createLikeStore)

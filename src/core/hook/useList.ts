@@ -21,7 +21,7 @@ export const useList = <Output>({
 	debounceTime = 100,
 	fetch,
 }: ListProps<Output>) => {
-	const { episodes, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery<
+	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery<
 		Pagination<Output>
 	>(queryKey, ({ pageParam = 1 }) => fetch(pageParam), {
 		getNextPageParam: (lastPage) => {
@@ -34,7 +34,7 @@ export const useList = <Output>({
 		initialData,
 	})
 
-	const isLoading = !episodes && !isFetchingNextPage
+	const isLoading = !data && !isFetchingNextPage
 
 	useEffect(() => {
 		if (isSSR()) return

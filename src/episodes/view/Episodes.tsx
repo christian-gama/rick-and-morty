@@ -1,8 +1,12 @@
+import { Episode } from '../dto'
+import { extractCharacterIds } from '../lib'
 import { episodeService } from '../service'
 
 import { Card } from '@/characters/component/Card'
+import { Character } from '@/characters/dto'
 import { characterService } from '@/characters/service'
 import { ContentLayout } from '@/core/component/Layout'
+import { Pagination } from '@/core/dto'
 import { LoadingIcon } from '@/core/icon'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery, useQuery } from 'react-query'
@@ -20,7 +24,12 @@ const Layout = styled.div`
 	}
 `
 
-const Episodes: FC = () => {
+type EpisodesProps = {
+	preloadedEpisodes: Pagination<Episode.Output>
+	preloadedCharacters: Character.Output[]
+}
+
+const Episodes: FC<EpisodesProps> = ({ preloadedEpisodes, preloadedCharacters }) => {
 	const [selectedEpisode, setSelectedEpisode] = useState<{
 		id: number
 		characters: string[]
@@ -29,24 +38,26 @@ const Episodes: FC = () => {
 		characters: [],
 	})
 
-	const { data: episodes, fetchNextPage, hasNextPage } = useLoadEpisodes()
+	const { data: episodes, fetchNextPage, hasNextPage } = useLoadEpisodes(preloadedEpisodes)
 
 	const [flatEpisodes, setFlatEpisodes] = useState(
-		episodes?.pages.flatMap((page) => page.results) ?? [],
+		episodes?.pages.flatMap((page) => page?.results ?? []),
 	)
 
 	const { data: characters, isLoading: isLoadingCharacters } = useLoadCharacters(
 		extractCharacterIds(selectedEpisode.characters),
+		preloadedCharacters,
 	)
 
 	useEffect(() => {
 		if (episodes) {
-			setFlatEpisodes(episodes.pages.flatMap((page) => page.results))
+			setFlatEpisodes(episodes.pages.flatMap((page) => page?.results ?? []))
 		}
 	}, [episodes])
 
 	useEffect(() => {
-		const episode = flatEpisodes.find((ep) => ep.id === selectedEpisode.id)
+		const episode = flatEpisodes?.find((ep) => ep.id === selectedEpisode.id)
+
 		if (episode) {
 			setSelectedEpisode((prev) => ({
 				...prev,
@@ -99,7 +110,7 @@ const Episodes: FC = () => {
 
 export default Episodes
 
-function useLoadEpisodes() {
+function useLoadEpisodes(initialData?: Pagination<Episode.Output>) {
 	return useInfiniteQuery(
 		'episodes',
 		({ pageParam }) => {
@@ -107,29 +118,25 @@ function useLoadEpisodes() {
 		},
 		{
 			getNextPageParam: (lastPage) => {
-				if (lastPage.info.next) {
+				if (lastPage?.info.next) {
 					return lastPage.info.next.match(/page=(\d+)/)?.[1]
 				}
 			},
 			keepPreviousData: true,
+			initialData: { pages: [initialData], pageParams: [] },
 		},
 	)
 }
 
-function extractCharacterIds(characters: string[]) {
-	return characters.map((character) => {
-		return parseInt(character.match(/character\/(\d+)/)?.[1] ?? '0')
-	})
-}
-
-function useLoadCharacters(characterIds: number[]) {
+function useLoadCharacters(characterIds: number[], initialData?: Character.Output[]) {
 	return useQuery(
 		['characters', characterIds],
 		() => {
 			return characterService.getByIds(characterIds)
 		},
 		{
-			enabled: characterIds.length > 0,
+			enabled: characterIds.length > 0 && !!initialData,
+			initialData,
 		},
 	)
 }
