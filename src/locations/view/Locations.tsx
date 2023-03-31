@@ -30,8 +30,6 @@ type LocationsProps = {
 }
 
 const Locations: FC<LocationsProps> = ({ preloadedLocations, preloadedCharacters }) => {
-	console.log('preloadedLocations', preloadedLocations)
-	console.log('preloadedCharacters', preloadedCharacters)
 	const [selectedLocation, setSelectedLocation] = useState<{
 		id: number
 		residents: string[]

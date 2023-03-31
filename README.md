@@ -2,6 +2,8 @@
 
 This project is a frontend application that consumes the [Rick and Morty API](https://rickandmortyapi.com/) . It provides an interactive interface to explore characters, episodes, and locations from the popular TV show. The application supports pagination and various filtering options.
 
+You can access the live production ready application [here](https://rickandmortynextjs.vercel.app).
+
 ## Table of Contents
 
 - [Requirements](https://github.com/christian-gama/rick-and-morty#requirements)
