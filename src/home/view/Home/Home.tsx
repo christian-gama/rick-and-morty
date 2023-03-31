@@ -9,6 +9,7 @@ const Layout = styled.div`
 	height: 100vh;
 	margin: 0 auto;
 	max-width: 120rem;
+	max-height: 100vh;
 `
 
 const Home: FC = () => {
@@ -18,7 +19,7 @@ const Home: FC = () => {
 				href='/episodes'
 				img='/episodes.png'
 				title='Episodes'
-				yPos={-1}
+				yPos={25}
 			/>
 
 			<Section

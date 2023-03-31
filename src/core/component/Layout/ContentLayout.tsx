@@ -4,11 +4,12 @@ import { Link } from '../Link'
 import { Search } from '../Search'
 import { Up } from '../Up'
 
-import { FilterIcon, HeartIcon } from '@/core/icon'
+import { FilterIcon, HeartIcon, LeftArrowIcon } from '@/core/icon'
 import { isSSR } from '@/core/lib'
 import { useFilter } from '@/core/store'
 import type { Theme } from '@/core/theme'
 import { useLike } from '@/likes/store'
+import { useRouter } from 'next/router'
 import { ComponentProps, FC, PropsWithChildren, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { shallow } from 'zustand/shallow'
@@ -33,6 +34,7 @@ const Title = styled.h1`
 	color: white;
 	opacity: 0.97;
 	text-transform: uppercase;
+	margin-right: 2rem; // because of the Back button
 `
 
 const Header = styled.div`
@@ -67,6 +69,19 @@ const Filtering = styled(FilterIcon)`
 	}
 `
 
+const Back = styled(LeftArrowIcon)`
+	color: white;
+	opacity: 0.65;
+	width: 2rem;
+	height: 2rem;
+	transition: opacity 0.2s ease-in-out;
+
+	&:hover {
+		cursor: pointer;
+		opacity: 0.95;
+	}
+`
+
 const InputContainer = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -74,6 +89,14 @@ const InputContainer = styled.div`
 	align-items: center;
 	margin-bottom: 3rem;
 	margin-top: 2rem;
+`
+
+const ActionsContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
 `
 
 type ContentLayoutProps = PropsWithChildren<{
@@ -85,6 +108,7 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) 
 	const open = useFilter((state) => state.open)
 	const characterIds = useLike((state) => state.characterIds, shallow)
 	const [hasLikes, setHasLikes] = useState(false)
+	const { back } = useRouter()
 
 	useEffect(() => {
 		if (isSSR()) return
@@ -97,10 +121,17 @@ const ContentLayout: FC<ContentLayoutProps> = ({ title, InputProps, children }) 
 			<Filter />
 
 			<Header>
-				<Filtering onClick={open} />
+				<ActionsContainer>
+					<Filtering onClick={open} />
+					<Back
+						onClick={back}
+						title='Go back'
+					/>
+				</ActionsContainer>
+
 				<Title>{title}</Title>
 
-				<Link href='/liked'>
+				<Link href={hasLikes ? '/liked' : '#'}>
 					<Liked isLiked={hasLikes} />
 				</Link>
 			</Header>

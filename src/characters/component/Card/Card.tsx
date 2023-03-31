@@ -15,8 +15,9 @@ const StyledCard = styled.div`
 	background-color: white;
 	border-radius: 1rem;
 	overflow: hidden;
-	box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.25);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 3px 16px rgba(0, 0, 0, 0.22);
 	max-width: 20rem;
+	border: 1px solid ${({ theme }: { theme: Theme }) => theme.color.secondary[50]};
 `
 
 const Body = styled.div`
