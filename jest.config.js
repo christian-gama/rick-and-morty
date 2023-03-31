@@ -3,7 +3,6 @@
 /** @type {import('jest').Config} */
 const jestConfig = {
 	testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
-	maxWorkers: '66%',
 	testEnvironment: 'jsdom',
 	transform: {
 		'^.+\\.tsx?$': [

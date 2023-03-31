@@ -129,7 +129,7 @@ function useLoadEpisodes(initialData?: Pagination<Episode.Output>) {
 }
 
 function useLoadCharacters(characterIds: number[], initialData?: Character.Output[]) {
-	return useQuery(
+	const result = useQuery(
 		['characters', characterIds],
 		() => {
 			return characterService.getByIds(characterIds)
@@ -139,4 +139,13 @@ function useLoadCharacters(characterIds: number[], initialData?: Character.Outpu
 			initialData,
 		},
 	)
+
+	// Because the API may return a single object instead of an array in case there is only one resident
+	if (result.data) {
+		if (!Array.isArray(result.data)) {
+			result.data = [result.data]
+		}
+	}
+
+	return result
 }
