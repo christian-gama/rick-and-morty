@@ -1,7 +1,8 @@
 import { useLike } from '../store'
-import LikesWrapper from './LikesWrapper'
+import Likes from './LikesWrapper'
 
 import { Character } from '@/characters/dto'
+// eslint-disable-next-line unused-imports/no-unused-imports, @typescript-eslint/no-unused-vars
 import * as CharacterService from '@/characters/service'
 import { renderWithProviders } from '@/testutil/render'
 import { renderHook, screen, waitFor } from '@testing-library/react'
@@ -19,10 +20,6 @@ jest.mock('../../characters/service', () => ({
 		}),
 	},
 }))
-
-const characterServiceMock = CharacterService.characterService as jest.Mocked<
-	typeof CharacterService.characterService
->
 
 const mockedCharactersData = [
 	{
@@ -101,14 +98,14 @@ class LocalStorageMock implements Storage {
 
 global.localStorage = new LocalStorageMock()
 
-describe('LikesWrapper', () => {
+describe('Likes', () => {
 	it('renders cards correctly for liked characters', async () => {
 		renderHook(() => {
 			const addCharacter = useLike((state) => state.addCharacter)
 			addCharacter(mockedCharactersData[0].id)
 		})
 
-		await renderWithProviders(<LikesWrapper />)
+		await renderWithProviders(<Likes />)
 
 		let cards: HTMLElement[] = []
 		await waitFor(() => {
@@ -127,7 +124,7 @@ describe('LikesWrapper', () => {
 			addCharacter(mockedCharactersData[0].id)
 		})
 
-		await renderWithProviders(<LikesWrapper />)
+		await renderWithProviders(<Likes />)
 
 		let cards: HTMLElement[] = []
 		await waitFor(() => {
