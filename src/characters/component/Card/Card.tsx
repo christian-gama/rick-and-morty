@@ -97,15 +97,15 @@ export const CharacterCard = ({ character }: CardProps) => {
 	const values = useFilter((state) => state.values)
 	const { addCharacter, removeCharacter, isLiked } = useLike((state) => state)
 
-	if (!character.species?.toLowerCase().includes(values.species?.toLowerCase() || '')) {
+	if (character.species.toLowerCase() !== (values.species?.toLowerCase() || '') && values.species) {
 		return null
 	}
 
-	if (!character.status?.toLowerCase().includes(values.status?.toLowerCase() || '')) {
+	if (character.status.toLowerCase() !== (values.status?.toLowerCase() || '') && values.status) {
 		return null
 	}
 
-	if (!character.gender?.toLowerCase().includes(values.gender?.toLowerCase() || '')) {
+	if (character.gender.toLowerCase() !== (values.gender?.toLowerCase() || '') && values.gender) {
 		return null
 	}
 
