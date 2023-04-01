@@ -40,7 +40,6 @@ export const useList = <Output>({
 		if (isSSR()) return
 
 		const onScroll = debounce(() => {
-			console.log({ isLoading })
 			if (!isLoading && hasNextPage) {
 				fetchNextPage()
 			}

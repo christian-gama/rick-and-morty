@@ -12,7 +12,7 @@ export type Actions = {
 	isLiked: (id: number) => boolean
 }
 
-const ZST_LIKE_KEY = 'likes'
+export const ZST_LIKE_KEY = 'likes'
 
 const initializer: StateCreator<
 	State & Actions,

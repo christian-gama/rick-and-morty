@@ -4,10 +4,10 @@ import { RickAndMortyAPI } from '@/core/api'
 import { Pagination } from '@/core/dto'
 
 export class LocationService extends RickAndMortyAPI {
-	private readonly path = '/location'
+	static readonly path = '/location'
 
 	async getAll(filter: Location.Input) {
-		const response = await this.api.get<Pagination<Location.Output>>(this.path, {
+		const response = await this.api.get<Pagination<Location.Output>>(LocationService.path, {
 			params: filter,
 		})
 
@@ -15,17 +15,19 @@ export class LocationService extends RickAndMortyAPI {
 	}
 
 	async getById(id: number) {
-		const response = await this.api.get<Location.Output>(`${this.path}/${id}`)
+		const response = await this.api.get<Location.Output>(`${LocationService.path}/${id}`)
 		return response.data
 	}
 
 	async getByIds(ids: number[]) {
-		const response = await this.api.get<Location.Output[]>(`${this.path}/${ids.join(',')}`)
+		const response = await this.api.get<Location.Output[]>(
+			`${LocationService.path}/${ids.join(',')}`,
+		)
 		return response.data
 	}
 
 	async getAllCharactersOfLocation(id: number) {
-		const response = await this.api.get<Location.Output>(`${this.path}/${id}`)
+		const response = await this.api.get<Location.Output>(`${LocationService.path}/${id}`)
 		return response.data.residents
 	}
 }

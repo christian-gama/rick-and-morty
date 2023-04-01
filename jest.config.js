@@ -2,6 +2,7 @@
 
 /** @type {import('jest').Config} */
 const jestConfig = {
+	collectCoverageFrom: ['src/**/*.{ts,tsx}'],
 	testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
 	testEnvironment: 'jsdom',
 	transform: {

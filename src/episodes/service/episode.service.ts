@@ -4,10 +4,10 @@ import { RickAndMortyAPI } from '@/core/api'
 import { Pagination } from '@/core/dto'
 
 export class EpisodesService extends RickAndMortyAPI {
-	private readonly path = '/episode'
+	static readonly path = '/episode'
 
 	async getAll(filter: Episode.Input) {
-		const response = await this.api.get<Pagination<Episode.Output>>(`${this.path}`, {
+		const response = await this.api.get<Pagination<Episode.Output>>(`${EpisodesService.path}`, {
 			params: filter,
 		})
 
@@ -15,17 +15,19 @@ export class EpisodesService extends RickAndMortyAPI {
 	}
 
 	async getById(id: number) {
-		const response = await this.api.get<Episode.Output>(`${this.path}/${id}`)
+		const response = await this.api.get<Episode.Output>(`${EpisodesService.path}/${id}`)
 		return response.data
 	}
 
 	async getByIds(ids: number[]) {
-		const response = await this.api.get<Episode.Output[]>(`${this.path}/${ids.join(',')}`)
+		const response = await this.api.get<Episode.Output[]>(
+			`${EpisodesService.path}/${ids.join(',')}`,
+		)
 		return response.data
 	}
 
 	async getAllCharactersOfEpisode(id: number) {
-		const response = await this.api.get<Episode.Output>(`${this.path}/${id}`)
+		const response = await this.api.get<Episode.Output>(`${EpisodesService.path}/${id}`)
 		return response.data.characters
 	}
 }
